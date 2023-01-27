@@ -37,7 +37,6 @@ public class ControladorNave : MonoBehaviour
                 speed = 10;
             }
         }
-
         else
         {
             speed -= Time.deltaTime * 2;
