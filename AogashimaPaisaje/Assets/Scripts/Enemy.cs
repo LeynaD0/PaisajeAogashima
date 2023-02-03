@@ -10,8 +10,8 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     float speed = 2f;
     [SerializeField]
-    float distanciaCambio = 0.5f;
-    int numeroSiguientePosicíon = 0;
+    float distanciaCambio;
+    int numeroSiguientePosicion = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,15 +22,15 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         transform.position = Vector3.MoveTowards(transform.position, siguientePunto, speed * Time.deltaTime);
-
+        transform.LookAt(siguientePunto);
         if(Vector3.Distance(transform.position, siguientePunto) < distanciaCambio)
         {
-            numeroSiguientePosicíon++;
-            if(numeroSiguientePosicíon >= waypoints.Length)
+            numeroSiguientePosicion++;
+            if(numeroSiguientePosicion >= waypoints.Length)
             {
-                numeroSiguientePosicíon = 0;
-                siguientePunto = waypoints[numeroSiguientePosicíon].position;
+                numeroSiguientePosicion = 0;                
             }
+            siguientePunto = waypoints[numeroSiguientePosicion].position;
         }
     }
 }

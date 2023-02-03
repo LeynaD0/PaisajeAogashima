@@ -32,17 +32,17 @@ public class ControladorNave : MonoBehaviour
         if (Input.GetKey(KeyCode.LeftShift))
         {
             speed += Time.deltaTime * 4;
-            if(speed >= 10)
+            if(speed >= 20)
             {
-                speed = 10;
+                speed = 20;
             }
         }
         else
         {
             speed -= Time.deltaTime * 2;
-            if(speed <= 5)
+            if(speed <= 10)
             {
-                speed = 5;
+                speed = 10;
             }
         }
 
