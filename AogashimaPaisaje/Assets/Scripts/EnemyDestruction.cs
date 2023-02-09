@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class EnemyDestruction : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class EnemyDestruction : MonoBehaviour
         if(other.gameObject.tag == "Bala")
         {
             Debug.Log("Le dio");
-            Destroy(gameObject);
+            Puntuaciones.instance.NaveDestruida();            
             GameObject explosionTemporal = Instantiate(explosivePrefab, inicioExplosive.transform.position, inicioExplosive.transform.rotation) as GameObject;
+
+            Destroy(gameObject);
         }
     }
 }
