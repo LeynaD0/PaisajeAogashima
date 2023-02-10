@@ -4,24 +4,56 @@ using UnityEngine;
 
 public class DisparoNave : MonoBehaviour
 {
+    public static DisparoNave instance;
     [SerializeField]
     GameObject balaInicio;
     [SerializeField]
     GameObject balaPrefab;
     [SerializeField]
     float velocidadBala;
+    
+    public float timeShoot = 0.75f;
+    
+    public float cooldown = 0.75f;
 
+    private void Start()
+    {
+        if(instance != null && instance != this)
+        {
+            Destroy(this);
+        }
+
+        else
+        {
+            instance = this;
+        }
+    }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKey(KeyCode.Space))
         {
-            GameObject balaTemporal = Instantiate(balaPrefab, balaInicio.transform.position, balaInicio.transform.rotation) as GameObject;
+            timeShoot -= Time.deltaTime;
 
-            Rigidbody rigidbody = balaTemporal.GetComponent<Rigidbody>();
+            if(timeShoot <= 0)
+            {
+                GameObject balaTemporal = Instantiate(balaPrefab, balaInicio.transform.position, balaInicio.transform.rotation) as GameObject;
 
-            rigidbody.AddForce(transform.forward * velocidadBala);
+                Rigidbody rigidbody = balaTemporal.GetComponent<Rigidbody>();
 
-            Destroy(balaTemporal, 3);
+                rigidbody.AddForce(transform.forward * velocidadBala);
+
+                Destroy(balaTemporal, 3);
+
+                if(timeShoot < 0)
+                {
+                    timeShoot = cooldown;
+                }
+            }
+        }
+
+        else
+        {
+            timeShoot = cooldown;
         }
     }
 }
